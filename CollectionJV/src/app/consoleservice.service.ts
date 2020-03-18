@@ -24,4 +24,8 @@ export class ConsoleserviceService {
   createConsole(console){
     return this.request('POST', `${environment.serverUrl}/addconsole`, console);
   }
+
+  getConsoles(){
+    return this.request('GET', `${environment.serverUrl}/getconsole`);
+  }
 }

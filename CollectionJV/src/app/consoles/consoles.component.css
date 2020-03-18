@@ -5,3 +5,13 @@
     height: 6em;
     width: 6em;
 }
+
+.card {
+    min-width: 300px;
+    max-width: 400px;
+  }
+  
+.header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}

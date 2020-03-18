@@ -19,12 +19,6 @@
                     <input type="number" maxlength="17" required placeholder="Ex : 90.50" matInput [(ngModel)]="data.valeur">
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Date de sortie</mat-label>
-                    <input required matInput [(ngModel)]="data.sortie" [matDatepicker]="myDatepicker">
-                    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #myDatepicker></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Image du jeu (Lien d'une image venant d'internet)</mat-label>
                     <input required placeholder="Ex : https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/womanyellingcat-1573233850.jpg" matInput [(ngModel)]="data.image">
                 </mat-form-field>

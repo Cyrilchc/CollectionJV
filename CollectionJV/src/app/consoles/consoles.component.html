@@ -1,3 +1,33 @@
-<p>consoles works!</p>
+<mat-grid-list cols="4" rowHeight="1:1" style="height: 50em;">
+    <mat-grid-tile *ngFor="let console of consolesAny">
+        <mat-card class="card">
+            <mat-card-header>
+                <div mat-card-avatar> <img mat-card-image src="{{console.console_image}}"
+                        alt="Image introuvable" style="background-size: cover; width: 150%;"></div>
+                <mat-card-title>{{ console.console_nom }}</mat-card-title>
+                <mat-card-subtitle>{{ console.console_constructeur }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>Développeur : {{ console.console_developpeur }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Durée de vie : {{ console.console_dureedevie }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Unités vendues : {{ console.console_unitesvendues }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Processeur : {{ console.console_bits }} bits</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Meilleure vente : {{ console.console_meilleurevente }}</mat-list-item>
+                </mat-list>
+            </mat-card-content>
+            <mat-card-actions>
+                <button color='primary' mat-button>Voir les jeux de la console</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
 
-<button mat-fab class="addbutton" color=primary matTooltip="Ajouter une nouvelle console" (click)="openAddDialog()"><mat-icon>add</mat-icon></button>
+
+<button mat-fab class="addbutton" color=primary matTooltip="Ajouter une nouvelle console" (click)="openAddDialog()">
+    <mat-icon>add</mat-icon>
+</button>

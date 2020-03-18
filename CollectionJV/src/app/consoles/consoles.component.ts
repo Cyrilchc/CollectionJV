@@ -11,15 +11,29 @@ import { ConsoleserviceService } from '../consoleservice.service'
 })
 export class ConsolesComponent implements OnInit {
   console: Console;
+  consolesAny: any[] = [];
+  consolesToDisplay: Console[];
   constructor(public dialog: MatDialog, private consoleservice: ConsoleserviceService) { }
 
   ngOnInit(): void {
+    this.getConsoles()
+    console.log(this.consolesAny);
+  }
+
+  getConsoles() {
+    this.consoleservice.getConsoles().then((response: any) => {
+      this.consolesAny = response.map((ev) => {
+        ev.body = ev;
+        return ev;
+      });
+      console.log(this.consolesAny);
+    });
   }
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddconsoledialogComponent, {
       width: '60em',
-      data: {console: this.console}
+      data: { console: this.console }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -27,6 +41,7 @@ export class ConsolesComponent implements OnInit {
       this.console = result;
       console.log(this.console);
       let response = this.consoleservice.createConsole(this.console)
+      this.getConsoles();
       console.log(response);
     });
   }
