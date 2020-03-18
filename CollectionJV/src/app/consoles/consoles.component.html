@@ -1,6 +1,10 @@
-<mat-grid-list cols="4" rowHeight="1:1" style="height: 50em;">
+<p>{{width}}</p>
+<mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)" style="height: 50em;">
     <mat-grid-tile *ngFor="let console of consolesAny">
         <mat-card class="card">
+            <button mat-mini-fab class="delbutton" color=warn matTooltip="Supprimer cette console" (click)="deleteConsole(console.console_id)">
+                <mat-icon>close</mat-icon>
+            </button>
             <mat-card-header>
                 <div mat-card-avatar> <img mat-card-image src="{{console.console_image}}"
                         alt="Image introuvable" style="background-size: cover; width: 150%;"></div>
@@ -18,10 +22,12 @@
                     <mat-list-item>Processeur : {{ console.console_bits }} bits</mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>Meilleure vente : {{ console.console_meilleurevente }}</mat-list-item>
+                    <mat-divider></mat-divider>
                 </mat-list>
             </mat-card-content>
             <mat-card-actions>
-                <button color='primary' mat-button>Voir les jeux de la console</button>
+                <button color=primary mat-button><mat-icon>videogame_asset</mat-icon> Voir les jeux de la console</button>
+                <button color=accent mat-button (click)="openEditDialog(console)"><mat-icon>videogame_asset</mat-icon> Modifier la console</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>

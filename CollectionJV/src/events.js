@@ -20,9 +20,23 @@ function createRouter(db) {
     );
   });
 
+  router.delete('/deleteconsole/:id', function (req, res, next) {
+    db.query(
+      'DELETE FROM console WHERE console_id=?',
+      [req.params.id],
+      (error) => {
+        if (error) {
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+
   router.get('/getconsole', (req, res, next) => {
     db.query(
-      'select console_nom, console_constructeur, console_developpeur, console_dureedevie, console_unitesvendues, console_bits, console_meilleurevente, console_image from console',
+      'select console_id, console_nom, console_constructeur, console_developpeur, console_dureedevie, console_unitesvendues, console_bits, console_meilleurevente, console_image from console',
       [req.body],
       (error, results) => {
         if (error) {
