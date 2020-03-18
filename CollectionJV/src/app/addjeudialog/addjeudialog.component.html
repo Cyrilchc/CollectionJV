@@ -1,0 +1,76 @@
+<h1 mat-dialog-title>Ajouter un jeu.</h1>
+<div mat-dialog-content style="height: auto;">
+    <mat-grid-list cols="2" rowHeight="0.80:1" style="height: auto;">
+        <mat-grid-tile style="width: 100%; margin-right: 5px; height: auto;">
+            <div style="width: 100%; height: auto;">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Nom du jeu</mat-label>
+                    <input matInput [(ngModel)]="data.nom" placeholder="Ex : Bioshock" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Le jeu a une jaquette / boitier / boite </mat-label>
+                    <mat-select [(ngModel)]="data.jaquette" required>
+                        <mat-option value="true">oui</mat-option>
+                        <mat-option value="false">non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Valeur estimée (en euros)</mat-label>
+                    <input type="number" maxlength="17" required placeholder="Ex : 90.50" matInput [(ngModel)]="data.valeur">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Date de sortie</mat-label>
+                    <input required matInput [(ngModel)]="data.sortie" [matDatepicker]="myDatepicker">
+                    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #myDatepicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Image du jeu (Lien d'une image venant d'internet)</mat-label>
+                    <input required placeholder="Ex : https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/womanyellingcat-1573233850.jpg" matInput [(ngModel)]="data.image">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Plateformes sur lesquels le jeu est sorti</mat-label>
+                    <input required placeholder="Ex : PC, Playstation 4, Xbox One" matInput [(ngModel)]="data.plateformes">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile style="width: 100%; margin-left: 5px;">
+            <div style="width: 100%;">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Le jeu fonctionne</mat-label>
+                    <mat-select required [(ngModel)]="data.fonctionnel">
+                        <mat-option value="true">oui</mat-option>
+                        <mat-option value="false">non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Note du jeu (/20)</mat-label>
+                    <input required type="number" maxlength="3" placeholder="Ex : 12.5" matInput [(ngModel)]="data.note">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Développeur du jeu</mat-label>
+                    <input required placeholder="Ex : Blizzard" matInput [(ngModel)]="data.developpeur">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Éditeur du jeu</mat-label>
+                    <input required placeholder="Ex : Ubisoft" matInput [(ngModel)]="data.editeur">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Le jeu est multi-joueur</mat-label>
+                    <mat-select required [(ngModel)]="data.multijoueur">
+                        <mat-option value="true">oui</mat-option>
+                        <mat-option value="false">non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Genre du jeu</mat-label>
+                    <input required placeholder="Ex : JRPG" matInput [(ngModel)]="data.genre">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Annuler</button>
+    <button mat-button [mat-dialog-close]="data" color=primary>Ajouter</button>
+</div>
