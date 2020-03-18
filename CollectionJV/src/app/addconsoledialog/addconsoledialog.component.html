@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Ajouter une console.</h1>
+<div mat-dialog-content style="height: auto;">
+    <mat-grid-list cols="2" rowHeight="0.80:1" style="height: auto;">
+        <mat-grid-tile style="width: 100%; margin-right: 5px; height: auto;">
+            <div style="width: 100%; height: auto;">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Nom de la console</mat-label>
+                    <input matInput [(ngModel)]="data.nom" placeholder="Ex : Playstation" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Constructeur</mat-label>
+                    <input matInput [(ngModel)]="data.constructeur" placeholder="Ex : Sony" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Développeur</mat-label>
+                    <input matInput [(ngModel)]="data.developpeur" placeholder="Ex : Nintendo" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Durée de vie</mat-label>
+                    <input matInput [(ngModel)]="data.dureeDeVie" placeholder="Ex : 1996–2002" required>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile style="width: 100%; margin-left: 5px;">
+            <div style="width: 100%;">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Nombre d'unités vendues</mat-label>
+                    <input required type="number" placeholder="Ex : 5000" matInput [(ngModel)]="data.nbVendues">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Nombre de bits</mat-label>
+                    <input required type="number" placeholder="Ex : 64" matInput [(ngModel)]="data.bits">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Meilleure vente</mat-label>
+                    <input required placeholder="Ex : Super Mario 64" matInput [(ngModel)]="data.meilleureVente">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Image du jeu (Lien d'une image venant d'internet)</mat-label>
+                    <input required
+                        placeholder="Ex : https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Nintendo-64-wController-L.jpg/300px-Nintendo-64-wController-L.jpg"
+                        matInput [(ngModel)]="data.image">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Annuler</button>
+    <button mat-button [mat-dialog-close]="data" color=primary>Ajouter</button>
+</div>

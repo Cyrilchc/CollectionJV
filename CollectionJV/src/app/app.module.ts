@@ -52,6 +52,9 @@ import { JeudetailComponent } from './jeudetail/jeudetail.component';
 import { ConsoledetailComponent } from './consoledetail/consoledetail.component';
 import { AddjeudialogComponent } from './addjeudialog/addjeudialog.component';
 import { FormsModule } from '@angular/forms';
+import { AddconsoledialogComponent } from './addconsoledialog/addconsoledialog.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -70,7 +73,8 @@ const appRoutes: Routes = [
     ConsolesComponent,
     JeudetailComponent,
     ConsoledetailComponent,
-    AddjeudialogComponent
+    AddjeudialogComponent,
+    AddconsoledialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -79,6 +83,7 @@ const appRoutes: Routes = [
         enableTracing: true
       }
     ),
+    HttpClientModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -126,7 +131,7 @@ const appRoutes: Routes = [
     PortalModule,
     ScrollingModule
   ],
-  entryComponents:[
+  entryComponents: [
     AddjeudialogComponent
   ],
   providers: [],

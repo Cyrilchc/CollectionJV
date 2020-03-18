@@ -2,7 +2,6 @@ export interface Console {
     id: number;
     nom: string;
     constructeur: string;
-    sortie: Date;
     developpeur: string;
     dureeDeVie: string;
     nbVendues: number;
