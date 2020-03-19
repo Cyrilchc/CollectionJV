@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Voir les jeux de la console.</h1>
+<div mat-dialog-content style="height: auto;">
+    <div *ngFor="let jeu of data">
+        <mat-card class="card">
+            <mat-card-header>
+                <div mat-card-avatar> <img mat-card-image src="{{jeu.image}}" alt="Image introuvable"
+                        style="padding: 5px; height: 150%; width: 150%; border-radius: 50%;"></div>
+                <mat-card-title>{{ jeu.nom }}</mat-card-title>
+                <mat-card-subtitle>{{ jeu.developpeur }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onOkClick()">Ok</button>
+</div>

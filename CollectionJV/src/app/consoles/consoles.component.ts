@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Console } from '../console';
+import { Jeu } from '../jeu';
 import { AddconsoledialogComponent } from '../addconsoledialog/addconsoledialog.component'
 import { ConsoleserviceService } from '../consoleservice.service'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HostListener } from "@angular/core";
 import { EditconsoledialogComponent } from '../editconsoledialog/editconsoledialog.component';
 import { YesnodialogComponent } from '../yesnodialog/yesnodialog.component';
+import { DisplayJeuxComponent } from '../display-jeux/display-jeux.component';
 
 @Component({
   selector: 'app-consoles',
@@ -18,6 +20,7 @@ export class ConsolesComponent implements OnInit {
   console: Console;
   consoleToEdit: Console;
   consolesAny: Console[] = [];
+  jeuxTodisplay: Jeu[] = [];
   breakpoint: number;
 
   constructor(public dialog: MatDialog, private consoleservice: ConsoleserviceService, private snackBar: MatSnackBar) { }
@@ -122,6 +125,42 @@ export class ConsolesComponent implements OnInit {
           duration: 2000
         });
       }
+    });
+  }
+
+  /**
+   * Recherche les jeux dont la plateforme est la console sélectionnée
+   * @param plateforme Plateforme à rechercher
+   */
+  displayGames(plateforme): void {
+    this.jeuxTodisplay = [];
+    this.consoleservice.getJeuxLike(plateforme).then((response: any) => {
+      response.forEach(element => {
+        const jeu: Jeu = {
+          id: element.jeu_id,
+          nom: element.jeu_nom,
+          jaquette: element.jeu_presencejaquette,
+          fonctionnel: element.jeu_fonctionnel,
+          note: element.jeu_note,
+          valeur: element.jeu_valeurestimee,
+          developpeur: element.jeu_developpeur,
+          editeur: element.jeu_editeur,
+          multijoueur: element.jeu_estmultijoueur,
+          image: element.jeu_image,
+          plateformes: element.jeu_plateformes,
+          genre: element.jeu_genre
+        }
+
+        this.jeuxTodisplay.push(jeu);
+      });
+    });
+
+    console.log(this.jeuxTodisplay);
+    const dialogRef = this.dialog.open(DisplayJeuxComponent, {
+      width: '60em',
+      data: this.jeuxTodisplay
+    });
+    dialogRef.afterClosed().subscribe(async result => {
     });
   }
 

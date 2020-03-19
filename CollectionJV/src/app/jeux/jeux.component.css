@@ -4,17 +4,34 @@
     bottom: 1em;
     height: 6em;
     width: 6em;
+    transition: 0.3s;
+}
+
+.addbutton:hover{
+    height: 8em;
+    width: 8em;
 }
 
 .delbutton{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 5px;
+    top: 5px;
+    transition: 0.3s;
+}
+
+.delbutton:hover{
+    height: 4em;
+    width: 4em;
 }
 
 .card{
     min-width: 425px;
     max-width: 425px;
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-5px);
 }
 
 .header-image {

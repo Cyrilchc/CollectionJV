@@ -51,6 +51,15 @@ export class ConsoleserviceService {
   }
 
   /**
+   * Envoie une requête get pour obtenir les jeux qui fonctionnent sur la plateforme en paramètre 
+   * Attention : Utilise un filtre très nul : Like %plateformes%
+   * @param plateformes 
+   */
+  async getJeuxLike(plateformes){
+    return await this.request('GET', `${environment.serverUrl}/getconsolelike/${plateformes}`);
+  }
+
+  /**
    * Envoie une requête delete pour supprimer une console
    * @param id ID de la console à supprimer
    */

@@ -58,6 +58,7 @@ import { EditconsoledialogComponent } from './editconsoledialog/editconsoledialo
 import { EditjeudialogComponent } from './editjeudialog/editjeudialog.component';
 import { ParseBoolPipe } from './parse-bool.pipe';
 import { YesnodialogComponent } from './yesnodialog/yesnodialog.component';
+import { DisplayJeuxComponent } from './display-jeux/display-jeux.component';
 
 
 
@@ -82,7 +83,8 @@ const appRoutes: Routes = [
     EditconsoledialogComponent,
     EditjeudialogComponent,
     ParseBoolPipe,
-    YesnodialogComponent
+    YesnodialogComponent,
+    DisplayJeuxComponent
   ],
   imports: [
     RouterModule.forRoot(
