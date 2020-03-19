@@ -5,6 +5,7 @@ import { AddjeudialogComponent } from '../addjeudialog/addjeudialog.component';
 import { JeuserviceService } from '../jeuservice.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HostListener } from "@angular/core";
+import { EditjeudialogComponent } from '../editjeudialog/editjeudialog.component';
 
 @Component({
   selector: 'app-jeux',
@@ -54,16 +55,26 @@ export class JeuxComponent implements OnInit {
   /**
    * Obtient tous les jeux
    */
-  getjeux() {
+  async getjeux() {
+    this.jeuAny = [];
     this.jeuservice.getjeux().then((response: any) => {
-      this.jeuAny = response.map((ev) => {
-        ev.body = ev;
-        return ev;
+      response.forEach(element => {
+        const jeu: Jeu = {
+          id: element.jeu_id,
+          nom: element.jeu_nom,
+          jaquette: element.jeu_presencejaquette,
+          fonctionnel: element.jeu_fonctionnel,
+          note: element.jeu_note,
+          valeur: element.jeu_valeurestimee,
+          developpeur: element.jeu_developpeur,
+          editeur: element.jeu_editeur,
+          multijoueur: element.jeu_estmultijoueur,
+          image: element.jeu_image,
+          plateformes: element.jeu_plateformes,
+          genre: element.jeu_genre
+        }
+        this.jeuAny.push(jeu);
       });
-      /* console.log(this.jeuAny);
-      this.jeuAny.forEach(element => {
-        alert(element.jeu_nom)
-      }); */
     });
   }
 
@@ -84,21 +95,22 @@ export class JeuxComponent implements OnInit {
    * @param jeu Objet de type jeu à modifier
    */
   openEditDialog(jeu): void {
-    const dialogRef = this.dialog.open(AddjeudialogComponent, {
+    const dialogRef = this.dialog.open(EditjeudialogComponent, {
       width: '60em',
-      data: { data: jeu }
+      data: jeu 
     });
     dialogRef.afterClosed().subscribe(async result => {
-      this.jeuToEdit = result;
-      if (this.checkjeu(this.jeuToEdit)) {
+      let game = result;
+      if (this.checkjeu(game)) {
         this.jeuAny = [];
-        let response = await this.jeuservice.updatejeu(this.jeuToEdit);
-        console.log("Réponse après modification", response);
+        let response = await this.jeuservice.updatejeu(game);
+        this.jeuAny = [];
         this.getjeux();
         this.snackBar.open("jeu modifiée avec succès", "Ok", {
           duration: 2000
         });
       } else {
+        this.getjeux();
         this.snackBar.open("Le jeu n'a pas été modifiée", "Ok", {
           duration: 2000
         });

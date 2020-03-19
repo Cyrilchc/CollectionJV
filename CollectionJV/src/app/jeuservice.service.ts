@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { JeuxComponent } from './jeux/jeux.component';
 import { Jeu } from './jeu';
+import { log } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,8 @@ export class JeuserviceService {
      * @param id ID du jeu à modifier
      */
   async updatejeu(jeu) {
-    return await this.request('PUT', `${environment.serverUrl}/updatejeu/${jeu.id}`, jeu);
+    console.log(jeu);
+    return await this.request('PUT', `${environment.serverUrl}/updatejeu/` + jeu.id, jeu);
   }
 
   /**
