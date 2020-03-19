@@ -27,6 +27,15 @@ export class ConsoleserviceService {
   }
   
   /**
+   * Envoie une requête put pour modifier une console
+   * @param console Objet de type Console à modifier
+   * @param id ID de la console à modifier
+   */
+  async updateConsole(console){
+    return await this.request('PUT', `${environment.serverUrl}/updateconsole/${console.id}`, console);
+  }
+
+  /**
    * Envoie une requête post pour créer une console
    * @param console Objet de type Console
    */

@@ -14,6 +14,7 @@ import { HostListener } from "@angular/core";
 export class ConsolesComponent implements OnInit {
   width: number;
   console: Console;
+  consoleToEdit: Console;
   consolesAny: any[] = [];
   constructor(public dialog: MatDialog, private consoleservice: ConsoleserviceService, private snackBar: MatSnackBar) { }
   breakpoint: number;
@@ -79,8 +80,27 @@ export class ConsolesComponent implements OnInit {
    * Ouvre une dialogue pour modifier la console sélectionnée
    * @param console Objet de type Console à modifier
    */
-  openEditDialog(console): void{
-
+  openEditDialog(console): void {
+    const dialogRef = this.dialog.open(AddconsoledialogComponent, {
+      width: '60em',
+      data: { data: console }
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      this.consoleToEdit = result;
+      if (this.checkConsole(this.consoleToEdit)) {
+        this.consolesAny = [];
+        let response = await this.consoleservice.updateConsole(this.consoleToEdit);
+        console.log("Réponse après modification", response);
+        this.getConsoles();
+        this.snackBar.open("Console modifiée avec succès", "Ok", {
+          duration: 2000
+        });
+      } else {
+        this.snackBar.open("La console n'a pas été modifiée", "Ok", {
+          duration: 2000
+        });
+      }
+    });
   }
 
   /**
@@ -95,13 +115,14 @@ export class ConsolesComponent implements OnInit {
       this.console = result;
       if (this.checkConsole(this.console)) {
         this.consolesAny = [];
-        let response = await this.consoleservice.createConsole(this.console)
+        let response = await this.consoleservice.createConsole(this.console);
+        console.log("Réponse après création", response);
         this.getConsoles();
         this.snackBar.open("Console créée avec succès", "Ok", {
           duration: 2000
         });
       } else {
-        this.snackBar.open("Impossible de créer la console", "Ok", {
+        this.snackBar.open("La console n'a pas été créée", "Ok", {
           duration: 2000
         });
       }
