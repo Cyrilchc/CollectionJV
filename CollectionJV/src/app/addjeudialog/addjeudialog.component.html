@@ -10,8 +10,8 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Le jeu a une jaquette / boitier / boite </mat-label>
                     <mat-select [(ngModel)]="data.jaquette" required>
-                        <mat-option value="true">oui</mat-option>
-                        <mat-option value="false">non</mat-option>
+                        <mat-option value=1>oui</mat-option>
+                        <mat-option value=0>non</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="width: 100%;">
@@ -33,8 +33,8 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Le jeu fonctionne</mat-label>
                     <mat-select required [(ngModel)]="data.fonctionnel">
-                        <mat-option value="true">oui</mat-option>
-                        <mat-option value="false">non</mat-option>
+                        <mat-option value=1>oui</mat-option>
+                        <mat-option value=0>non</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="width: 100%;">
@@ -52,8 +52,8 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Le jeu est multi-joueur</mat-label>
                     <mat-select required [(ngModel)]="data.multijoueur">
-                        <mat-option value="true">oui</mat-option>
-                        <mat-option value="false">non</mat-option>
+                        <mat-option value=1>oui</mat-option>
+                        <mat-option value=0>non</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="width: 100%;">

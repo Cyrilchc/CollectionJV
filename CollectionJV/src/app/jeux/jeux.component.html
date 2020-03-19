@@ -1,25 +1,42 @@
+<p>{{width}}</p>
 <h1>Liste des jeux :</h1>
-
-
-<mat-grid-list cols="4" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let jeu of jeuAny">
-        <mat-card class="cartes">
+<mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)" style="height: 50em;">
+    <mat-grid-tile *ngFor="let jeux of jeuAny">
+        <mat-card class="card">
+            <button mat-mini-fab class="delbutton" color=warn matTooltip="Supprimer ce jeu" (click)="deletejeu(jeux.jeu_id)">
+                <mat-icon>close</mat-icon>
+            </button>
             <mat-card-header>
-                <mat-card-title>{{ jeu.jeu_nom }}</mat-card-title>
+                <div mat-card-avatar> <img mat-card-image src="{{jeux.jeu_image}}"
+                        alt="Image introuvable" style="background-size: cover; width: 150%;"></div>
+                <mat-card-title>{{ jeux.jeu_nom }}</mat-card-title>
+                <mat-card-subtitle>{{ jeux.jeu_editeur }}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="{{ jeu.jeu_image }}" alt="Photo csgo">
             <mat-card-content>
-                <p>
-                    {{ jeu.jeu_note }}
-                </p>
+                <mat-list>
+                    <mat-list-item>Développeur : {{ jeux.jeu_developpeur }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Jaquette : {{ jeux.jeu_presencejaquette }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Fonctionnel : {{ jeux.jeu_fonctionnel }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>Note : {{ jeux.jeu_note }} /20</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>valeur estimée : {{ jeux.jeu_valeurestimee }} €</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>jeu multijoueur : {{ jeux.jeu_estmultijoueur }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>plateformes : {{ jeux.jeu_plateformes }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>genre : {{ jeux.jeu_genre }}</mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button>plus de détail</button>
+                <button color=accent mat-button (click)="openEditDialog(jeu)"><mat-icon>videogame_asset</mat-icon> Modifier le jeu</button>
             </mat-card-actions>
         </mat-card>
-
     </mat-grid-tile>
-
 </mat-grid-list>
 
 

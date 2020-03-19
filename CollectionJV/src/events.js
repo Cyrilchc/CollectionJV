@@ -20,21 +20,66 @@ function createRouter(db) {
     );
   });
 
-    router.post('/addjeu', (req, res, next) => {
-      console.log(req);
-      db.query(
-        'INSERT INTO jeux (jeu_nom, jeu_presencejaquette, jeu_fonctionnel, jeu_note, jeu_valeurestimee, jeu_developpeur, jeu_editeur, jeu_estmultijoueur, jeu_image, jeu_plateformes, jeu_genre) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-        [req.body.nom, req.body.jaquette, req.body.fonctionnel, req.body.note, req.body.valeur, req.body.developpeur, req.body.editeur, req.body.multijoueur, req.body.image, req.body.plateformes, req.body.genre],
-        (error) => {
-          if (error) {
-            console.error(error);
-            res.status(500).json({status: 'error'});
-          } else {
-            res.status(200).json({status: 'ok'});
-          }
+  router.put('/updatejeu/:id', (req, res, next) => {
+    console.log(req);
+    db.query(
+      'UPDATE jeux set jeu_nom=?, jeu_presencejaquette=?, jeu_fonctionnel=?, jeu_note=?, jeu_valeurestimee=?, jeu_developpeur=?, jeu_editeur=?, jeu_estmultijoueur=?, jeu_image=?, jeu_plateformes=?, jeu_genre=? where jeu_id=?',
+      [req.body.nom, req.body.jaquette, req.body.fonctionnel, req.body.note, req.body.valeur, req.body.developpeur, req.body.editeur, req.body.multijoueur, req.body.image, req.body.plateformes, req.body.genre],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
         }
-      );
-    });
+      }
+    );
+  });
+
+  router.post('/addjeu', (req, res, next) => {
+    console.log(req);
+    db.query(
+      'INSERT INTO jeux (jeu_nom, jeu_presencejaquette, jeu_fonctionnel, jeu_note, jeu_valeurestimee, jeu_developpeur, jeu_editeur, jeu_estmultijoueur, jeu_image, jeu_plateformes, jeu_genre) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+      [req.body.nom, req.body.jaquette, req.body.fonctionnel, req.body.note, req.body.valeur, req.body.developpeur, req.body.editeur, req.body.multijoueur, req.body.image, req.body.plateformes, req.body.genre],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+
+  router.delete('/deletejeu/:id', function (req, res, next) {
+    db.query(
+      'DELETE FROM jeux WHERE jeu_id=?',
+      [req.params.id],
+      (error) => {
+        if (error) {
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+
+  router.get('/getjeux', (req, res, next) => {
+    db.query(
+      'SELECT jeu_id, jeu_nom, jeu_presencejaquette, jeu_fonctionnel, jeu_note, jeu_valeurestimee, jeu_developpeur, jeu_editeur, jeu_estmultijoueur, jeu_image, jeu_plateformes, jeu_genre from jeux',
+      [req.body],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
 
 
   router.post('/addconsole', (req, res, next) => {
@@ -69,7 +114,7 @@ function createRouter(db) {
 
   router.get('/getconsole', (req, res, next) => {
     db.query(
-      'select console_id, console_nom, console_constructeur, console_developpeur, console_dureedevie, console_unitesvendues, console_bits, console_meilleurevente, console_image from console',
+      'SELECT console_id, console_nom, console_constructeur, console_developpeur, console_dureedevie, console_unitesvendues, console_bits, console_meilleurevente, console_image from console',
       [req.body],
       (error, results) => {
         if (error) {

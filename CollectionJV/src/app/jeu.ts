@@ -1,14 +1,14 @@
 export interface Jeu {
     id: number;
     nom : string;
-    jaquette : boolean;
-    fonctionnel  : boolean;
+    jaquette : number;
+    fonctionnel  : number;
     note : number;
     valeur : number;
     developpeur : string;
     editeur : string;
     genre : string;
-    multijoueur : boolean;
+    multijoueur : number;
     image: string,
     plateformes: string,
 }
