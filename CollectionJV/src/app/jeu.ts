@@ -8,7 +8,6 @@ export interface Jeu {
     developpeur : string;
     editeur : string;
     genre : string;
-    sortie : Date;
     multijoueur : boolean;
     image: string,
     plateformes: string,

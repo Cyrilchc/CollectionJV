@@ -20,8 +20,24 @@ function createRouter(db) {
         );
       });
 
+    router.post('/addjeu', (req, res, next) => {
+      console.log(req);
+      db.query(
+        'INSERT INTO jeux (jeu_nom, jeu_presencejaquette, jeu_fonctionnel, jeu_note, jeu_valeurestimee, jeu_developpeur, jeu_editeur, jeu_estmultijoueur, jeu_image, jeu_plateformes, jeu_genre) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+        [req.body.nom, req.body.jaquette, req.body.fonctionnel, req.body.note, req.body.valeur, req.body.developpeur, req.body.editeur, req.body.multijoueur, req.body.image, req.body.plateformes, req.body.genre],
+        (error) => {
+          if (error) {
+            console.error(error);
+            res.status(500).json({status: 'error'});
+          } else {
+            res.status(200).json({status: 'ok'});
+          }
+        }
+      );
+    });
 
-    return router;
+
+  return router;
 }
 
 module.exports = createRouter;
