@@ -10,9 +10,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class AddconsoledialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddconsoledialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Console) { }
+    @Inject(MAT_DIALOG_DATA) public data: Console) {
+  }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
 
   onNoClick(): void {
