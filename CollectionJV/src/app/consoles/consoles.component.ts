@@ -5,6 +5,7 @@ import { AddconsoledialogComponent } from '../addconsoledialog/addconsoledialog.
 import { ConsoleserviceService } from '../consoleservice.service'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HostListener } from "@angular/core";
+import { EditconsoledialogComponent } from '../editconsoledialog/editconsoledialog.component';
 
 @Component({
   selector: 'app-consoles',
@@ -15,17 +16,18 @@ export class ConsolesComponent implements OnInit {
   width: number;
   console: Console;
   consoleToEdit: Console;
-  consolesAny: any[] = [];
-  constructor(public dialog: MatDialog, private consoleservice: ConsoleserviceService, private snackBar: MatSnackBar) { }
+  consolesAny: Console[] = [];
   breakpoint: number;
+
+  constructor(public dialog: MatDialog, private consoleservice: ConsoleserviceService, private snackBar: MatSnackBar) { }
 
   /**
    * Lancement de la page
    * Obtient toutes les consoles et met en place un affichage responsive
    */
-  ngOnInit(): void {
+  async ngOnInit() {
     this.width = window.innerWidth;
-    this.getConsoles()
+    await this.getConsoles();
     if (window.innerWidth > 1450) {
       this.breakpoint = 3;
     } else if (window.innerWidth <= 1450 && window.innerWidth > 960) {
@@ -54,12 +56,23 @@ export class ConsolesComponent implements OnInit {
   /**
    * Obtient toutes les consoles
    */
-  getConsoles() {
+  async getConsoles() {
     this.consolesAny = [];
     this.consoleservice.getConsoles().then((response: any) => {
-      this.consolesAny = response.map((ev) => {
-        ev.body = ev;
-        return ev;
+      response.forEach(element => {
+        const console: Console = {
+          id: element.console_id,
+          nom: element.console_nom,
+          constructeur: element.console_constructeur,
+          developpeur: element.console_developpeur,
+          dureeDeVie: element.console_dureedevie,
+          nbVendues: element.console_unitesvendues,
+          bits: element.console_bits,
+          meilleureVente: element.console_meilleurevente,
+          image: element.console_image,
+        }
+
+        this.consolesAny.push(console);
       });
     });
   }
@@ -70,7 +83,6 @@ export class ConsolesComponent implements OnInit {
    * TODO : Nice to have : Une popup yesno pour valider la suppression
    */
   async deleteConsole(id) {
-    this.consolesAny = [];
     await this.consoleservice.deleteConsole(id);
     this.getConsoles();
     console.log(this.consolesAny);
@@ -81,21 +93,21 @@ export class ConsolesComponent implements OnInit {
    * @param console Objet de type Console à modifier
    */
   openEditDialog(console): void {
-    const dialogRef = this.dialog.open(AddconsoledialogComponent, {
+    const dialogRef = this.dialog.open(EditconsoledialogComponent, {
       width: '60em',
-      data: { data: console }
+      data: console
     });
     dialogRef.afterClosed().subscribe(async result => {
-      this.consoleToEdit = result;
-      if (this.checkConsole(this.consoleToEdit)) {
+      let cons = result;
+      if (this.checkConsole(cons)) {
+        let response = await this.consoleservice.updateConsole(cons);
         this.consolesAny = [];
-        let response = await this.consoleservice.updateConsole(this.consoleToEdit);
-        console.log("Réponse après modification", response);
         this.getConsoles();
         this.snackBar.open("Console modifiée avec succès", "Ok", {
           duration: 2000
         });
       } else {
+        this.getConsoles();
         this.snackBar.open("La console n'a pas été modifiée", "Ok", {
           duration: 2000
         });
@@ -116,7 +128,6 @@ export class ConsolesComponent implements OnInit {
       if (this.checkConsole(this.console)) {
         this.consolesAny = [];
         let response = await this.consoleservice.createConsole(this.console);
-        console.log("Réponse après création", response);
         this.getConsoles();
         this.snackBar.open("Console créée avec succès", "Ok", {
           duration: 2000

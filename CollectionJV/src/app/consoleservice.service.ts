@@ -32,7 +32,7 @@ export class ConsoleserviceService {
    * @param id ID de la console à modifier
    */
   async updateConsole(console){
-    return await this.request('PUT', `${environment.serverUrl}/updateconsole/${console.id}`, console);
+    return await this.request('PUT', `${environment.serverUrl}/updateconsole/` + console.id, console);
   }
 
   /**

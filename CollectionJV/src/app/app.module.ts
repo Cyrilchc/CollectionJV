@@ -54,6 +54,7 @@ import { AddjeudialogComponent } from './addjeudialog/addjeudialog.component';
 import { FormsModule } from '@angular/forms';
 import { AddconsoledialogComponent } from './addconsoledialog/addconsoledialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditconsoledialogComponent } from './editconsoledialog/editconsoledialog.component';
 
 
 
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     JeudetailComponent,
     ConsoledetailComponent,
     AddjeudialogComponent,
-    AddconsoledialogComponent
+    AddconsoledialogComponent,
+    EditconsoledialogComponent
   ],
   imports: [
     RouterModule.forRoot(

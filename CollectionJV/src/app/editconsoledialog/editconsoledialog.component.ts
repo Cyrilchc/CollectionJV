@@ -1,19 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Console } from '../console';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
 @Component({
-  selector: 'app-addconsoledialog',
-  templateUrl: './addconsoledialog.component.html',
-  styleUrls: ['./addconsoledialog.component.css']
+  selector: 'app-editconsoledialog',
+  templateUrl: './editconsoledialog.component.html',
+  styleUrls: ['./editconsoledialog.component.css']
 })
-export class AddconsoledialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<AddconsoledialogComponent>,
+export class EditconsoledialogComponent implements OnInit {
+  constructor(public dialogRef: MatDialogRef<EditconsoledialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Console) {
   }
 
   ngOnInit(): void {
+    console.log("Edition", this.data);
   }
 
   onNoClick(): void {
