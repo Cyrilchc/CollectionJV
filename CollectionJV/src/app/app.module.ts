@@ -56,6 +56,8 @@ import { AddconsoledialogComponent } from './addconsoledialog/addconsoledialog.c
 import { HttpClientModule } from '@angular/common/http';
 import { EditconsoledialogComponent } from './editconsoledialog/editconsoledialog.component';
 import { EditjeudialogComponent } from './editjeudialog/editjeudialog.component';
+import { ParseBoolPipe } from './parse-bool.pipe';
+import { YesnodialogComponent } from './yesnodialog/yesnodialog.component';
 
 
 
@@ -78,7 +80,9 @@ const appRoutes: Routes = [
     AddjeudialogComponent,
     AddconsoledialogComponent,
     EditconsoledialogComponent,
-    EditjeudialogComponent
+    EditjeudialogComponent,
+    ParseBoolPipe,
+    YesnodialogComponent
   ],
   imports: [
     RouterModule.forRoot(

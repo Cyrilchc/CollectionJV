@@ -12,7 +12,6 @@ export class EditconsoledialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Edition", this.data);
   }
 
   onNoClick(): void {

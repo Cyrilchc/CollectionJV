@@ -1,4 +1,3 @@
-<p>{{width}}</p>
 <mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)" style="height: 50em;">
     <mat-grid-tile *ngFor="let console of consolesAny">
         <mat-card class="card">

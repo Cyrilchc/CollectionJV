@@ -6,6 +6,7 @@ import { ConsoleserviceService } from '../consoleservice.service'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HostListener } from "@angular/core";
 import { EditconsoledialogComponent } from '../editconsoledialog/editconsoledialog.component';
+import { YesnodialogComponent } from '../yesnodialog/yesnodialog.component';
 
 @Component({
   selector: 'app-consoles',
@@ -83,9 +84,18 @@ export class ConsolesComponent implements OnInit {
    * TODO : Nice to have : Une popup yesno pour valider la suppression
    */
   async deleteConsole(id) {
-    await this.consoleservice.deleteConsole(id);
-    this.getConsoles();
-    console.log(this.consolesAny);
+    const dialogRef = this.dialog.open(YesnodialogComponent, {
+      width: '60em',
+      data: true
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      let yesno = result;
+      if (yesno == true) {
+        await this.consoleservice.deleteConsole(id);
+        this.getConsoles();
+        console.log(this.consolesAny);
+      }
+    });
   }
 
   /**

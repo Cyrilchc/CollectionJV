@@ -1,14 +1,12 @@
-<p>{{width}}</p>
-<h1>Liste des jeux :</h1>
 <mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)" style="height: 50em;">
     <mat-grid-tile *ngFor="let jeux of jeuAny">
         <mat-card class="card">
-            <button mat-mini-fab class="delbutton" color=warn matTooltip="Supprimer ce jeu" (click)="deletejeu(jeux.id)">
+            <button mat-mini-fab class="delbutton" color=warn matTooltip="Supprimer ce jeu"
+                (click)="deletejeu(jeux.id)">
                 <mat-icon>close</mat-icon>
             </button>
             <mat-card-header>
-                <div mat-card-avatar> <img mat-card-image src="{{jeux.image}}"
-                        alt="Image introuvable" style="background-size: cover; width: 150%;"></div>
+                <div mat-card-avatar> <img mat-card-image src="{{jeux.image}}" alt="Image introuvable" style="padding: 5px; height: 150%; width: 150%; border-radius: 50%;"></div>
                 <mat-card-title>{{ jeux.nom }}</mat-card-title>
                 <mat-card-subtitle>{{ jeux.editeur }}</mat-card-subtitle>
             </mat-card-header>
@@ -16,15 +14,15 @@
                 <mat-list>
                     <mat-list-item>Développeur : {{ jeux.developpeur }}</mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item>Jaquette : {{ jeux.jaquette }}</mat-list-item>
+                    <mat-list-item>Jaquette : {{ jeux.jaquette | parseBool }}</mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item>Fonctionnel : {{ jeux.fonctionnel }}</mat-list-item>
+                    <mat-list-item>Fonctionnel : {{ jeux.fonctionnel | parseBool }}</mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>Note : {{ jeux.note }} /20</mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>valeur estimée : {{ jeux.valeur }} €</mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item>jeu multijoueur : {{ jeux.multijoueur }}</mat-list-item>
+                    <mat-list-item>jeu multijoueur : {{ jeux.multijoueur | parseBool}}</mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>plateformes : {{ jeux.plateformes }}</mat-list-item>
                     <mat-divider></mat-divider>
@@ -33,7 +31,9 @@
                 </mat-list>
             </mat-card-content>
             <mat-card-actions>
-                <button color=accent mat-button (click)="openEditDialog(jeux)"><mat-icon>videogame_asset</mat-icon> Modifier le jeu</button>
+                <button color=accent mat-button (click)="openEditDialog(jeux)">
+                    <mat-icon>videogame_asset</mat-icon> Modifier le jeu
+                </button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>

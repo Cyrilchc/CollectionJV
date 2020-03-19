@@ -6,6 +6,7 @@ import { JeuserviceService } from '../jeuservice.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HostListener } from "@angular/core";
 import { EditjeudialogComponent } from '../editjeudialog/editjeudialog.component';
+import { YesnodialogComponent } from '../yesnodialog/yesnodialog.component';
 
 @Component({
   selector: 'app-jeux',
@@ -16,7 +17,7 @@ export class JeuxComponent implements OnInit {
   width: number;
   jeu: Jeu;
   jeuToEdit: Jeu;
-  jeuAny: any[]=[];
+  jeuAny: any[] = [];
   constructor(public dialog: MatDialog, private jeuservice: JeuserviceService, private snackBar: MatSnackBar) { }
   breakpoint: number;
 
@@ -36,11 +37,11 @@ export class JeuxComponent implements OnInit {
     }
   }
 
-    /**
-   * Évènement de redimensionnement
-   * Permet d'obtenir un comportement responsive de la grille
-   * @param event 
-   */
+  /**
+ * Évènement de redimensionnement
+ * Permet d'obtenir un comportement responsive de la grille
+ * @param event 
+ */
   onResize(event) {
     this.width = window.innerWidth;
     if (window.innerWidth > 1450) {
@@ -84,20 +85,28 @@ export class JeuxComponent implements OnInit {
    * TODO : Nice to have : Une popup yesno pour valider la suppression
    */
   async deletejeu(id) {
-    this.jeuAny = [];
-    await this.jeuservice.deletejeu(id);
-    this.getjeux();
-    console.log(this.jeuAny);
+    const dialogRef = this.dialog.open(YesnodialogComponent, {
+      width: '60em',
+      data: true
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      let yesno = result;
+      if (yesno == true) {
+        this.jeuAny = [];
+        await this.jeuservice.deletejeu(id);
+        this.getjeux();
+      }
+    });
   }
 
-    /**
-   * Ouvre une dialogue pour modifier le jeu sélectionnée
-   * @param jeu Objet de type jeu à modifier
-   */
+  /**
+ * Ouvre une dialogue pour modifier le jeu sélectionnée
+ * @param jeu Objet de type jeu à modifier
+ */
   openEditDialog(jeu): void {
     const dialogRef = this.dialog.open(EditjeudialogComponent, {
       width: '60em',
-      data: jeu 
+      data: jeu
     });
     dialogRef.afterClosed().subscribe(async result => {
       let game = result;
@@ -118,13 +127,13 @@ export class JeuxComponent implements OnInit {
     });
   }
 
-    /**
-   * Ouvre une dialogue permettant à l'utilisateur de créer son jeu
-   */
+  /**
+ * Ouvre une dialogue permettant à l'utilisateur de créer son jeu
+ */
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddjeudialogComponent, {
       width: '60em',
-      data: {jeu: this.jeu}
+      data: { jeu: this.jeu }
     });
 
     dialogRef.afterClosed().subscribe(async result => {
