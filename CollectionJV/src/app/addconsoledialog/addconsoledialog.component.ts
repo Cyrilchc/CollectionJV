@@ -9,13 +9,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class AddconsoledialogComponent implements OnInit {
   breakpoint: number;
-  larg: number;
   constructor(public dialogRef: MatDialogRef<AddconsoledialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Console) {
   }
 
   ngOnInit(): void {
-    this.larg = window.innerWidth
     if (window.innerWidth > 815) {
       this.breakpoint = 2;
     } else if (window.innerWidth <= 815) {
@@ -29,7 +27,6 @@ export class AddconsoledialogComponent implements OnInit {
 * @param event 
 */
   onResize(event) {
-    this.larg = window.innerWidth
     if (window.innerWidth > 815) {
       this.breakpoint = 2;
     } else if (window.innerWidth <= 815) {

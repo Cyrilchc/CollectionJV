@@ -9,6 +9,10 @@ import { HostListener } from "@angular/core";
 import { EditconsoledialogComponent } from '../editconsoledialog/editconsoledialog.component';
 import { YesnodialogComponent } from '../yesnodialog/yesnodialog.component';
 import { DisplayJeuxComponent } from '../display-jeux/display-jeux.component';
+import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-consoles',
@@ -16,7 +20,6 @@ import { DisplayJeuxComponent } from '../display-jeux/display-jeux.component';
   styleUrls: ['./consoles.component.css']
 })
 export class ConsolesComponent implements OnInit {
-  width: number;
   console: Console;
   consoleToEdit: Console;
   consolesAny: Console[] = [];
@@ -30,7 +33,6 @@ export class ConsolesComponent implements OnInit {
    * Obtient toutes les consoles et met en place un affichage responsive
    */
   async ngOnInit() {
-    this.width = window.innerWidth;
     await this.getConsoles();
     if (window.innerWidth > 1450) {
       this.breakpoint = 3;
@@ -47,7 +49,6 @@ export class ConsolesComponent implements OnInit {
    * @param event 
    */
   onResize(event) {
-    this.width = window.innerWidth;
     if (window.innerWidth > 1450) {
       this.breakpoint = 3;
     } else if (window.innerWidth <= 1450 && window.innerWidth > 960) {
@@ -63,6 +64,30 @@ export class ConsolesComponent implements OnInit {
   async getConsoles() {
     this.consolesAny = [];
     this.consoleservice.getConsoles().then((response: any) => {
+      response.forEach(element => {
+        const console: Console = {
+          id: element.console_id,
+          nom: element.console_nom,
+          constructeur: element.console_constructeur,
+          developpeur: element.console_developpeur,
+          dureeDeVie: element.console_dureedevie,
+          nbVendues: element.console_unitesvendues,
+          bits: element.console_bits,
+          meilleureVente: element.console_meilleurevente,
+          image: element.console_image,
+        }
+
+        this.consolesAny.push(console);
+      });
+    });
+  }
+
+  /**
+   * Recherche des consoles avec le paramètre
+   */
+  async searchConsoles(searchString: string) {
+    this.consolesAny = [];
+    this.consoleservice.searchConsoles(searchString).then((response: any) => {
       response.forEach(element => {
         const console: Console = {
           id: element.console_id,
@@ -187,6 +212,28 @@ export class ConsolesComponent implements OnInit {
         });
       }
     });
+  }
+
+  /**
+   * Effectue une recherche sur les consoles
+   */
+  search(): void {
+    let searchString = (<HTMLInputElement>document.getElementById("searchString")).value;
+    if (searchString != "") {
+      this.searchConsoles(searchString);
+    } else {
+      this.getConsoles();
+    }
+  }
+
+  /**
+   * Si l'événement keydown est lancé avec la touche entrée, on lance la recherche
+   * @param event Évènement touche enfoncée
+   */
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.search();
+    }
   }
 
   /**

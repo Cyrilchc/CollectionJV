@@ -48,10 +48,8 @@ import { MatButton } from '@angular/material/button';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ConsolesComponent } from './consoles/consoles.component';
 import { JeuxComponent } from './jeux/jeux.component';
-import { JeudetailComponent } from './jeudetail/jeudetail.component';
-import { ConsoledetailComponent } from './consoledetail/consoledetail.component';
 import { AddjeudialogComponent } from './addjeudialog/addjeudialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddconsoledialogComponent } from './addconsoledialog/addconsoledialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditconsoledialogComponent } from './editconsoledialog/editconsoledialog.component';
@@ -76,8 +74,6 @@ const appRoutes: Routes = [
     AppComponent,
     JeuxComponent,
     ConsolesComponent,
-    JeudetailComponent,
-    ConsoledetailComponent,
     AddjeudialogComponent,
     AddconsoledialogComponent,
     EditconsoledialogComponent,
@@ -95,6 +91,7 @@ const appRoutes: Routes = [
     ),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     A11yModule,

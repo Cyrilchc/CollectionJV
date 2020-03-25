@@ -9,15 +9,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class AddjeudialogComponent implements OnInit {
   breakpoint: number;
-  larg: number;
   constructor(public dialogRef: MatDialogRef<AddjeudialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Jeu) { }
 
   ngOnInit(): void {
-    this.larg = window.innerWidth
-    if (window.innerWidth > 815) {
+    if (window.innerWidth > 1030) {
       this.breakpoint = 2;
-    } else if (window.innerWidth <= 815) {
+    } else if (window.innerWidth <= 1030) {
       this.breakpoint = 1;
     }
   }
@@ -28,10 +26,9 @@ export class AddjeudialogComponent implements OnInit {
 * @param event 
 */
   onResize(event) {
-    this.larg = window.innerWidth
-    if (window.innerWidth > 815) {
+    if (window.innerWidth > 1030) {
       this.breakpoint = 2;
-    } else if (window.innerWidth <= 815) {
+    } else if (window.innerWidth <= 1030) {
       this.breakpoint = 1;
     }
   }

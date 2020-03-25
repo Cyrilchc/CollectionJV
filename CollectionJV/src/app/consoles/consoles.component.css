@@ -38,3 +38,13 @@
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
+
+.searchForm{
+    margin-left: 1em;
+    margin-top: 1em;
+    display: inline-flex;
+}
+
+.searchButton{
+    margin-left: 1em;
+}

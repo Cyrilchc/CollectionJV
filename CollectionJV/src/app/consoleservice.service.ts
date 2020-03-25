@@ -60,6 +60,14 @@ export class ConsoleserviceService {
   }
 
   /**
+   * Recherche des consoles par son nom
+   * @param searchString nom à rechercher
+   */
+  async searchConsoles(searchString){
+    return await this.request('GET', `${environment.serverUrl}/searchconsole/${searchString}`);
+  }
+
+  /**
    * Envoie une requête delete pour supprimer une console
    * @param id ID de la console à supprimer
    */
