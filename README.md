@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `jeux` (
 * Sélectionnez le fichier "collectionjv.sql" qui se trouve à la racine du projet
 * Cliquez sur le bouton "Exécuter"
 
-### Faire fonctionner l'application
+## Faire fonctionner l'application
 
 #### Se rendre dans le projet 
 
@@ -100,5 +100,7 @@ node .\src\index.js
 ```
 http://localhost:4200/
 ```
+
+## Démonstration
 
 [Démonstration](https://drive.google.com/file/d/1vPMqGeOajLeRzz8Xv3iNFYuDbZC5nzO_/view?usp=sharing)
