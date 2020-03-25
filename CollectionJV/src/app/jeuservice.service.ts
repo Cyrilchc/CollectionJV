@@ -62,6 +62,14 @@ export class JeuserviceService {
   async deletejeu(id) {
     return await this.request('DELETE', `${environment.serverUrl}/deletejeu/${id}`)
   }
+
+  /**
+   * Recherche un jeu par son nom
+   * @param nom Nom à rechercher
+   */
+  async searchjeu(nom){
+    return await this.request('GET', `${environment.serverUrl}/searchjeu/${nom}`)
+  }
 }
 
 

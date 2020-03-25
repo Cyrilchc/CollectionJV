@@ -144,6 +144,21 @@ function createRouter(db) {
     );
   });
 
+  router.get('/searchjeu/:nom', (req, res, next) => {
+    db.query(
+      "select * from jeux where jeu_nom like ?",
+      ["%" + req.params.nom + "%"],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+
   router.get('/getconsole', (req, res, next) => {
     db.query(
       'SELECT console_id, console_nom, console_constructeur, console_developpeur, console_dureedevie, console_unitesvendues, console_bits, console_meilleurevente, console_image from console',

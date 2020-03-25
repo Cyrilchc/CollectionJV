@@ -85,6 +85,55 @@ export class JeuxComponent implements OnInit {
   }
 
   /**
+   * Recherche un jeu par son nom
+   * @param nom Nom à rechercher
+   */
+  async searchjeu(nom) {
+    this.jeuAny = [];
+    this.jeuservice.searchjeu(nom).then((response: any) => {
+      response.forEach(element => {
+        const jeu: Jeu = {
+          id: element.jeu_id,
+          nom: element.jeu_nom,
+          jaquette: element.jeu_presencejaquette,
+          fonctionnel: element.jeu_fonctionnel,
+          note: element.jeu_note,
+          valeur: element.jeu_valeurestimee,
+          developpeur: element.jeu_developpeur,
+          editeur: element.jeu_editeur,
+          multijoueur: element.jeu_estmultijoueur,
+          image: element.jeu_image,
+          plateformes: element.jeu_plateformes,
+          genre: element.jeu_genre
+        }
+        this.jeuAny.push(jeu);
+      });
+    });
+  }
+
+  /**
+  * Effectue une recherche sur les jeux
+  */
+  search(): void {
+    let searchString = (<HTMLInputElement>document.getElementById("searchString")).value;
+    if (searchString != "") {
+      this.searchjeu(searchString);
+    } else {
+      this.getjeux();
+    }
+  }
+
+  /**
+ * Si l'événement keydown est lancé avec la touche entrée, on lance la recherche
+ * @param event Évènement touche enfoncée
+ */
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.search();
+    }
+  }
+
+  /**
    * Supprime le jeu en base qui possède l'ID en paramètre
    * @param id ID d'un jeu en base de données
    * TODO : Nice to have : Une popup yesno pour valider la suppression

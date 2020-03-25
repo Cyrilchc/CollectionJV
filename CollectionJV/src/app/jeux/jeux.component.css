@@ -39,10 +39,12 @@
     background-size: cover;
 }
 
-/*@media screen and (max-width: 960px) {
-    .card {
-      min-height: 100px;
-      max-height: 100px;
-      font-style: italic;
-    }
-  }*/
+.searchForm{
+    margin-left: 1em;
+    margin-top: 1em;
+    display: inline-flex;
+}
+
+.searchButton{
+    margin-left: 1em;
+}
