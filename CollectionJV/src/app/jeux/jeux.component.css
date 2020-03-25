@@ -38,3 +38,11 @@
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
+
+/*@media screen and (max-width: 960px) {
+    .card {
+      min-height: 100px;
+      max-height: 100px;
+      font-style: italic;
+    }
+  }*/

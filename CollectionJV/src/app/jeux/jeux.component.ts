@@ -14,6 +14,7 @@ import { YesnodialogComponent } from '../yesnodialog/yesnodialog.component';
   styleUrls: ['./jeux.component.css']
 })
 export class JeuxComponent implements OnInit {
+  desktop: boolean;
   width: number;
   jeu: Jeu;
   jeuToEdit: Jeu;
@@ -26,6 +27,7 @@ export class JeuxComponent implements OnInit {
    * Obtient tous les jeux et met en place un affichage responsive
    */
   ngOnInit(): void {
+    this.desktop = true;
     this.width = window.innerWidth;
     this.getjeux()
     if (window.innerWidth > 1450) {
@@ -34,6 +36,7 @@ export class JeuxComponent implements OnInit {
       this.breakpoint = 2;
     } else if (window.innerWidth <= 960 && window.innerWidth > 600) {
       this.breakpoint = 1;
+      this.desktop = false;
     }
   }
 
@@ -43,6 +46,7 @@ export class JeuxComponent implements OnInit {
  * @param event 
  */
   onResize(event) {
+    this.desktop = true;
     this.width = window.innerWidth;
     if (window.innerWidth > 1450) {
       this.breakpoint = 3;
@@ -50,6 +54,7 @@ export class JeuxComponent implements OnInit {
       this.breakpoint = 2;
     } else if (window.innerWidth <= 960) {
       this.breakpoint = 1;
+      this.desktop = false;
     }
   }
 

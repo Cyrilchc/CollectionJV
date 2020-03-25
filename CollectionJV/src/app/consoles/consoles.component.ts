@@ -157,7 +157,7 @@ export class ConsolesComponent implements OnInit {
 
     console.log(this.jeuxTodisplay);
     const dialogRef = this.dialog.open(DisplayJeuxComponent, {
-      width: '60em',
+      width: '40em',
       data: this.jeuxTodisplay
     });
     dialogRef.afterClosed().subscribe(async result => {

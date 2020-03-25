@@ -9,7 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   styleUrls: ['./display-jeux.component.css']
 })
 export class DisplayJeuxComponent implements OnInit {
-
+  NoGame: string
   constructor(public dialogRef: MatDialogRef<DisplayJeuxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Jeu[]) { }
 

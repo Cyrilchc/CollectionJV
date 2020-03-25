@@ -1,5 +1,8 @@
 <h1 mat-dialog-title>Voir les jeux de la console.</h1>
 <div mat-dialog-content style="height: auto;">
+    <p *ngIf="data.length < 1">
+        Aucun jeu détecté pour cette console
+    </p>
     <div *ngFor="let jeu of data">
         <mat-card class="card">
             <mat-card-header>
