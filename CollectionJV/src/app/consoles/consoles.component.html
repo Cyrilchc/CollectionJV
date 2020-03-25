@@ -1,14 +1,17 @@
 <div class="searchForm">
     <form>
         <mat-form-field>
-            <mat-label>Rechercher une console</mat-label>
+            <mat-label>Console ou développeur</mat-label>
             <input matInput placeholder="Ex. PS4" id="searchString" (keydown)="onKeydown($event)">
         </mat-form-field>
     </form>
-    <button color=primary mat-mini-fab matTooltip="Rechercher" (click)="search()" class="searchButton">
+    <button color=primary mat-mini-fab matTooltip="Rechercher" (click)="search()" class="   ">
         <mat-icon>search</mat-icon>
     </button>
 </div>
+<br>
+
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
 <mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)" style="height: 50em;">
     <mat-grid-tile *ngFor="let console of consolesAny" class="cantexceed">

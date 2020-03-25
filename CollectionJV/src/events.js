@@ -131,8 +131,8 @@ function createRouter(db) {
 
   router.get('/searchconsole/:nom', (req, res, next) => {
     db.query(
-      "select * from console where console_nom like ?",
-      ["%" + req.params.nom + "%"],
+      "select * from console where console_nom like ? or console_developpeur like ?",
+      ["%" + req.params.nom + "%", "%" + req.params.nom + "%"],
       (error, results) => {
         if (error) {
           console.error(error);
@@ -146,8 +146,8 @@ function createRouter(db) {
 
   router.get('/searchjeu/:nom', (req, res, next) => {
     db.query(
-      "select * from jeux where jeu_nom like ?",
-      ["%" + req.params.nom + "%"],
+      "select * from jeux where jeu_nom like ? or jeu_developpeur like ?",
+      ["%" + req.params.nom + "%", "%" + req.params.nom + "%"],
       (error, results) => {
         if (error) {
           console.error(error);

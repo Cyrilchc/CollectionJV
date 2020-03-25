@@ -25,6 +25,7 @@ export class ConsolesComponent implements OnInit {
   consolesAny: Console[] = [];
   jeuxTodisplay: Jeu[] = [];
   breakpoint: number;
+  isLoading: boolean = false;
 
   constructor(public dialog: MatDialog, private consoleservice: ConsoleserviceService, private snackBar: MatSnackBar) { }
 
@@ -33,7 +34,9 @@ export class ConsolesComponent implements OnInit {
    * Obtient toutes les consoles et met en place un affichage responsive
    */
   async ngOnInit() {
+    this.isLoading = true;
     await this.getConsoles();
+    this.isLoading = false;
     if (window.innerWidth > 1450) {
       this.breakpoint = 3;
     } else if (window.innerWidth <= 1450 && window.innerWidth > 960) {
@@ -41,6 +44,8 @@ export class ConsolesComponent implements OnInit {
     } else if (window.innerWidth <= 960 && window.innerWidth > 600) {
       this.breakpoint = 1;
     }
+
+    (<HTMLInputElement>document.getElementById("searchString")).focus();
   }
 
   /**
@@ -63,7 +68,9 @@ export class ConsolesComponent implements OnInit {
    */
   async getConsoles() {
     this.consolesAny = [];
-    this.consoleservice.getConsoles().then((response: any) => {
+    this.isLoading = true;
+    await this.delay(700);
+    await this.consoleservice.getConsoles().then((response: any) => {
       response.forEach(element => {
         const console: Console = {
           id: element.console_id,
@@ -79,6 +86,7 @@ export class ConsolesComponent implements OnInit {
 
         this.consolesAny.push(console);
       });
+      this.isLoading = false;
     });
   }
 
@@ -87,7 +95,9 @@ export class ConsolesComponent implements OnInit {
    */
   async searchConsoles(searchString: string) {
     this.consolesAny = [];
-    this.consoleservice.searchConsoles(searchString).then((response: any) => {
+    this.isLoading = true;
+    await this.delay(700);
+    await this.consoleservice.searchConsoles(searchString).then((response: any) => {
       response.forEach(element => {
         const console: Console = {
           id: element.console_id,
@@ -103,6 +113,7 @@ export class ConsolesComponent implements OnInit {
 
         this.consolesAny.push(console);
       });
+      this.isLoading = false;
     });
   }
 
@@ -119,8 +130,10 @@ export class ConsolesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       let yesno = result;
       if (yesno == true) {
+        this.isLoading = true;
         await this.consoleservice.deleteConsole(id);
-        this.getConsoles();
+        await this.getConsoles();
+        this.isLoading = false;
         console.log(this.consolesAny);
       }
     });
@@ -138,9 +151,11 @@ export class ConsolesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       let cons = result;
       if (this.checkConsole(cons)) {
+        this.isLoading = true;
         let response = await this.consoleservice.updateConsole(cons);
         this.consolesAny = [];
-        this.getConsoles();
+        await this.getConsoles();
+        this.isLoading = false;
         this.snackBar.open("Console modifiée avec succès", "Ok", {
           duration: 2000
         });
@@ -157,9 +172,11 @@ export class ConsolesComponent implements OnInit {
    * Recherche les jeux dont la plateforme est la console sélectionnée
    * @param plateforme Plateforme à rechercher
    */
-  displayGames(plateforme): void {
+  async displayGames(plateforme) {
     this.jeuxTodisplay = [];
-    this.consoleservice.getJeuxLike(plateforme).then((response: any) => {
+    this.isLoading = true;
+    await this.delay(700);
+    await this.consoleservice.getJeuxLike(plateforme).then((response: any) => {
       response.forEach(element => {
         const jeu: Jeu = {
           id: element.jeu_id,
@@ -178,6 +195,8 @@ export class ConsolesComponent implements OnInit {
 
         this.jeuxTodisplay.push(jeu);
       });
+
+      this.isLoading = false;
     });
 
     console.log(this.jeuxTodisplay);
@@ -201,8 +220,10 @@ export class ConsolesComponent implements OnInit {
       this.console = result;
       if (this.checkConsole(this.console)) {
         this.consolesAny = [];
+        this.isLoading = true;
         let response = await this.consoleservice.createConsole(this.console);
-        this.getConsoles();
+        await this.getConsoles();
+        this.isLoading = false;
         this.snackBar.open("Console créée avec succès", "Ok", {
           duration: 2000
         });
@@ -217,12 +238,12 @@ export class ConsolesComponent implements OnInit {
   /**
    * Effectue une recherche sur les consoles
    */
-  search(): void {
+  async search() {
     let searchString = (<HTMLInputElement>document.getElementById("searchString")).value;
     if (searchString != "") {
-      this.searchConsoles(searchString);
+      await this.searchConsoles(searchString);
     } else {
-      this.getConsoles();
+      await this.getConsoles();
     }
   }
 
@@ -246,5 +267,13 @@ export class ConsolesComponent implements OnInit {
     }
 
     return false;
+  }
+
+  /**
+   * Impose un délai dont la longueur est donnée en paramètres
+   * @param ms Temps à attendre
+   */
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

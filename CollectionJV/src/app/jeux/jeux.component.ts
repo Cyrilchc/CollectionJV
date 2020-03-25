@@ -14,6 +14,7 @@ import { YesnodialogComponent } from '../yesnodialog/yesnodialog.component';
   styleUrls: ['./jeux.component.css']
 })
 export class JeuxComponent implements OnInit {
+  isLoading: boolean = false;
   desktop: boolean;
   width: number;
   jeu: Jeu;
@@ -29,6 +30,7 @@ export class JeuxComponent implements OnInit {
   ngOnInit(): void {
     this.desktop = true;
     this.width = window.innerWidth;
+    (<HTMLInputElement>document.getElementById("searchString")).focus();
     this.getjeux()
     if (window.innerWidth > 1450) {
       this.breakpoint = 3;
@@ -63,7 +65,9 @@ export class JeuxComponent implements OnInit {
    */
   async getjeux() {
     this.jeuAny = [];
-    this.jeuservice.getjeux().then((response: any) => {
+    this.isLoading = true;
+    await this.delay(700);
+    await this.jeuservice.getjeux().then((response: any) => {
       response.forEach(element => {
         const jeu: Jeu = {
           id: element.jeu_id,
@@ -81,6 +85,8 @@ export class JeuxComponent implements OnInit {
         }
         this.jeuAny.push(jeu);
       });
+
+      this.isLoading = false;
     });
   }
 
@@ -90,7 +96,9 @@ export class JeuxComponent implements OnInit {
    */
   async searchjeu(nom) {
     this.jeuAny = [];
-    this.jeuservice.searchjeu(nom).then((response: any) => {
+    this.isLoading = true;
+    await this.delay(700);
+    await this.jeuservice.searchjeu(nom).then((response: any) => {
       response.forEach(element => {
         const jeu: Jeu = {
           id: element.jeu_id,
@@ -108,6 +116,8 @@ export class JeuxComponent implements OnInit {
         }
         this.jeuAny.push(jeu);
       });
+
+      this.isLoading = false;
     });
   }
 
@@ -169,12 +179,12 @@ export class JeuxComponent implements OnInit {
         let response = await this.jeuservice.updatejeu(game);
         this.jeuAny = [];
         this.getjeux();
-        this.snackBar.open("jeu modifiée avec succès", "Ok", {
+        this.snackBar.open("jeu modifié avec succès", "Ok", {
           duration: 2000
         });
       } else {
         this.getjeux();
-        this.snackBar.open("Le jeu n'a pas été modifiée", "Ok", {
+        this.snackBar.open("Le jeu n'a pas été modifié", "Ok", {
           duration: 2000
         });
       }
@@ -197,11 +207,11 @@ export class JeuxComponent implements OnInit {
         let response = await this.jeuservice.createJeu(this.jeu);
         console.log("Réponse après création", response);
         this.getjeux();
-        this.snackBar.open("jeu créée avec succès", "Ok", {
+        this.snackBar.open("jeu créé avec succès", "Ok", {
           duration: 2000
         });
       } else {
-        this.snackBar.open("Le jeu n'a pas été créée", "Ok", {
+        this.snackBar.open("Le jeu n'a pas été créé", "Ok", {
           duration: 2000
         });
       }
@@ -218,5 +228,13 @@ export class JeuxComponent implements OnInit {
     }
 
     return false;
+  }
+
+  /**
+ * Impose un délai dont la longueur est donnée en paramètres
+ * @param ms Temps à attendre
+ */
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
