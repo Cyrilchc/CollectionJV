@@ -17,7 +17,7 @@ npm install --save-dev mysql
 
 ### Mettre en place la base de données
 
-#### Connectez vous à la base de données
+#### Connectez-vous à mysql
 
 ```
 mysql
@@ -27,7 +27,7 @@ mysql
 create database collectionjv
 ```
 
-#### Créez les tables nécessaires en ligne de commande
+#### Créez les tables nécessaires
 
 ```
 DROP TABLE IF EXISTS `console`;
@@ -64,8 +64,13 @@ CREATE TABLE IF NOT EXISTS `jeux` (
 
 **_Ou_**
 
+#### Créez la base de données avec phpmyadmin
+* Dans le menu, cliquez sur "Nouvelle base de données"
+* Dans le champ proposé, entrez "collectionjv"
+
+
 #### Créez les tables avec phpmyadmin
-* Connectez vous à phpmyadmin
+* Dans le menu, cliquez sur la base "collectionjv"
 * Dans le bandeau, cliquez sur "Importer"
 * Cliquez sur le bouton "Choisir un fichier"
 * Sélectionnez le fichier "collectionjv.sql" qui se trouve à la racine du projet
