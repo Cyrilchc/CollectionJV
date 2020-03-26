@@ -9,6 +9,21 @@
 
 ### Installer les dépendances nécessaires
 
+#### Prérequis
+
+##### Installez NodeJs
+```
+// Avec apt
+sudo apt install nodejs
+```
+
+##### Installez npm
+```
+// Avec apt
+sudo apt install npm
+```
+##### Prérequis du projet
+
 ``` 
 npm install -g @angular/cli
 npm install --save-dev @angular-devkit/build-angular
