@@ -10,6 +10,7 @@
 ### Installer les dépendances nécessaires
 
 ``` 
+npm install -g @angular/cli
 npm install --save-dev @angular-devkit/build-angular
 npm install --save-dev express
 npm install --save-dev cors
