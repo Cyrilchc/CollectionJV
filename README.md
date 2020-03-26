@@ -34,6 +34,12 @@ npm install --save-dev mysql
 
 ### Mettre en place la base de données
 
+#### Installer le sgdb si ce n'est pas fait
+```
+// Avec apt
+sudo apt install apache2 mariadb-server
+```
+
 #### Connectez-vous à mysql
 
 ```
