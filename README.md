@@ -120,7 +120,10 @@ node .\src\index.js
 ```
 **Note :**
 
-*Modfiez les informations de connexion à mysql dans le fichier index.js. Par défaut :*
+*Modifiez les informations de connexion à mysql dans le fichier index.js en fonction de votre configuration.*
+
+*Par défaut, le fichier indique :*
+
 * Hôte : localhost
 * Utilisateur : root
 * Mot de passe : 
