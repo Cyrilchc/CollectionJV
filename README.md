@@ -118,6 +118,14 @@ ng serve
 ```
 node .\src\index.js
 ```
+**Note :**
+
+*Modfiez les informations de connexion à mysql dans le fichier index.js. Par défaut :*
+* Hôte : localhost
+* Utilisateur : root
+* Mot de passe : 
+* Base de données : collectionjv
+
 
 #### Utilisez l'application
 ```
